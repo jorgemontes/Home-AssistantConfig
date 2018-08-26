@@ -1,0 +1,95 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.familia
+    - group.pronostico
+    - group.clima
+    - group.financiero
+    - group.dispositivos
+    - group.all_devices
+    - group.velocidad_internet
+
+lights:
+  name: Lights
+  view: yes  
+  icon: mdi:lightbulb-on
+  entities: 
+    - group.habitacion_jono_group
+    - group.all_automations
+    - group.all_lights
+
+multimedia:
+  name: Multimedia
+  view: yes
+  icon: mdi:presentation-play
+  entities:
+    - group.series
+    - group.peliculas
+    - media_player.living_room_tv
+    - media_player.plex_web_firefox
+    - media_player.spotify
+
+familia:
+  name: Familia
+  view: no
+  entities:
+    - device_tracker.jonophone_jonophone
+    - device_tracker.Samuel
+    - device_tracker.Diana
+    - device_tracker.Helena
+    - device_tracker.Eliberto
+    - device_tracker.Sandra
+Weather:
+  name: Weather
+  view: no
+  entities:
+    - sun.sun
+    - sensor.yw_day_condition
+    - sensor.yw_day_temperature_max
+    - sensor.yw_day_temperature_min
+pronostico:
+  name: Pronostico
+  view: no
+  entities:
+    - sensor.yw_day1_condition
+    - sensor.yw_day2_condition
+peliculas:
+  name: Peliculas
+  view: no
+  entities: 
+    - sensor.radarr_movies
+    - sensor.radarr_upcoming
+series:
+  name: Series
+  view: no
+  entities: 
+    - sensor.sonarr_queue
+    - sensor.sonarr_upcoming
+
+velocidad_internet:
+  name: Velocidad Internet
+  view: no
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+
+financiero:
+  name: Financiero
+  entities:
+    - sensor.bitcoin_balance
+    - sensor.exchange_rate_1_btc
+    - sensor.trade_volume
+
+dispositivos:
+  name: Dispositivos
+  entities:
+    - binary_sensor.jonohub
+
+habitacion_jono_group:
+  name: Apto Jono
+  entities:
+    - light.dinning_room
+    - light.living_room
+

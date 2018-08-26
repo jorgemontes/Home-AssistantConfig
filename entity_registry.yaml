@@ -1,0 +1,5 @@
+media_player.living_room_tv:
+  config_entry_id: 303d372e4acb4713853883049a85b89c
+  name:
+  platform: cast
+  unique_id: 8b4113f1-b443-e31a-5463-07883f6ec6a0

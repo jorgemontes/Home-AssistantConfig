@@ -1,0 +1,36 @@
+- action:
+  - data: {}
+    service: light.turn_on
+  alias: Jono llega a Casa
+  condition:
+  - after: '18:00'
+    before: '8:00'
+    condition: time
+  id: '1503852737659'
+  trigger:
+  - entity_id: device_tracker.jonophone_jonophone
+    from: not_home
+    platform: state
+    to: home
+- action:
+  - service: light.turn_on
+  alias: Despertador
+  condition:
+  - condition: state
+    entity_id: device_tracker.jonophone_jonophone
+    state: home
+  id: '1503861371213'
+  trigger:
+  - at: '6:30'
+    platform: time
+- action:
+  - data: {}
+    service: light.turn_off
+  alias: Nadie en Casa -> Apagar Luces
+  condition: []
+  id: '1503885747516'
+  trigger:
+  - entity_id: device_tracker.jonophone_jonophone
+    from: home
+    platform: state
+    to: not_home

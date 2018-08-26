@@ -1,0 +1,180 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secrets home_lat
+  longitude: !secrets home_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 1495
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Bogota
+#  customize:
+#    sensor.yw_day_condition:
+#      friendly_name: Clima
+#    sensor.yw_day_temperature_max:
+#      friendly_name: Maxima
+#    sensor.yw_day_temperature_min:
+#      friendly_name: Minima
+#    sensor.yw_day1_condition:
+#      friendly_name: Manana
+#    sensor.yw_day2_condition:
+#      friendly_name: Pasado Manana
+
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  - platform: plex
+  - platform: yweather
+    name: yw_day
+    monitored_conditions:
+      - weather
+      - temp_min
+      - temp_max
+  - platform: yweather
+    forecast: 1
+    name: yw_day1
+    monitored_conditions:
+      - weather
+
+  - platform: yweather
+    forecast: 2
+    name: yw_day2
+    monitored_conditions:
+      - weather
+
+  - platform: sonarr
+    api_key: !secret sonarr_api_key
+    host: !secret raspberry_local_ip
+    port: 8989
+    monitored_conditions:
+      - queue
+      - upcoming
+    days: 2
+
+  - platform: radarr
+    api_key: !secret radarr_api_key
+    host: !secret raspberry_local_ip
+    port: 7878
+    monitored_conditions:
+      - movies
+      - upcoming
+    days: 2
+
+  - platform: speedtest
+    minute: 30
+    hour:
+      - 0
+      - 6
+      - 12
+      - 18
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+
+  - platform: blockchain
+    addresses:
+      - !secret btc_wallet
+
+  - platform: bitcoin
+    display_options:
+      - exchangerate
+      - trade_volume_btc
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+
+automation: !include automations.yaml
+
+media_player:
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_id
+
+device_tracker:
+   - platform: tplink    
+     host: !secret tp_link_local_ip
+     username: !secret tp_link_user              
+     password: !secret tp_link_password
+     interval_seconds: 300
+     consider_home: 600
+
+   - platform: owntracks
+     max_gps_accuracy: 200
+     mqtt_topic: "owntracks/#"
+
+wink:
+  email: !secret wink_email
+  password: !secret wink_password
+  client_id: !secret wink_client_id
+  client_secret: !secret wink_client_secret
+
+duckdns:
+  domain: !secret duck_dns_domain
+  access_token: !secret duck_dns_access_token
+
+mqtt:
+  broker: m14.cloudmqtt.com
+  port: 13098
+  client_id: !secret mqtt_client_id
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+map:
+
+zone: !include zone.yaml
+
+# Example configuration.yaml entry for the Telegram Bot
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - !secret telegram_chat_id
+
+# Example configuration.yaml entry for the notifier
+notify:
+  - name: TELEGRAM_JONO
+    platform: telegram
+    chat_id: !secret telegram_chat_id
+    api_key: !secret telegram_api_key
+
+
+

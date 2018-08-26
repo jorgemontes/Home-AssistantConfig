@@ -1,0 +1,24 @@
+  - name: !secret zone_work_name
+    latitude: !secret zone_work_lat
+    longitude: !secret zone_work_long
+    radius: 200
+    icon: mdi:briefcase
+
+  - name: !secret zone_farm_name
+    latitude: !secret zone_farm_lat
+    longitude: !secret zone_farm_long
+    radius: 500
+    icon: mdi:cow
+
+  # This will override the default home zone
+  - name: Home
+    latitude: !secret home_lat
+    longitude: !secret home_long
+    radius: 200
+    icon: mdi:home
+
+  - name: !secret zone_phome_name
+    latitude: !secret zone_phouse_lat
+    longitude: !secret zone_phouse_long  
+    radius: 200
+    icon: mdi:home 
